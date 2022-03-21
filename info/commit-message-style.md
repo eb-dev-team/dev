@@ -1,4 +1,4 @@
-#Commit Message Style Guide
+# Commit Message Style Guide
 
 ## Message structure
     type(option): Subject    // -> 제목
