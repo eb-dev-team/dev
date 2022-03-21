@@ -3,9 +3,9 @@
 ## Message structure
     type(option): Subject    // -> 제목
     \n
-    body(option)                    //  -> 본문
+    body(option)             //  -> 본문
     \n
-    footer(option)                  // -> 꼬리말
+    footer(option)           // -> 꼬리말
 
 - type: 종류
 - Subject: 50자 이하, 마침표 x, 동사 먼저, 첫글자 대문자
@@ -18,7 +18,7 @@
     Fix: 버그를 고침
     Design: Ui 변경
     !BREAKING CHANGE: 큰 변화가 있는 경우
-    !HOTFIX: 그바게 치명적인 버그를 고쳐야하는 경우
+    !HOTFIX: 그 밖에 치명적인 버그를 고쳐야하는 경우
     Style: 코드 포맷만 변경
     Refactor: 리팩토링
     Comment: 주석 관련
