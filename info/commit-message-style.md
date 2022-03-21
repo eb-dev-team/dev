@@ -29,7 +29,7 @@
     Remove: 파일 삭제
 
 ## Footer types
-    Fixes: 수정중
+    Fixes: 수정 중
     Resolves: 해결
     Ref: 참고
     Related to: 관련 이슈(해결 x)
