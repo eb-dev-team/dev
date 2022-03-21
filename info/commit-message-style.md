@@ -28,7 +28,7 @@
     Rename: 파일, 폴더 이름이나 위치 변경
     Remove: 파일 삭제
 
-## footer types
+## Footer types
     Fixes: 수정중
     Resolves: 해결
     Ref: 참고
