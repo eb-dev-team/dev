@@ -1,0 +1,201 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
+      type="text/javascript"
+    ></script>
+  </head>
+
+  <body>
+    <button id="addItemBtn">옵션추가</button>
+    <button id="allRemove">모든삭제</button>
+    <table id="example" border="1px">
+      <tr>
+        <th>옵션명</th>
+        <th>항목명</th>
+        <th>필수항목</th>
+        <th>가격</th>
+        <th>재고</th>
+        <th>옵션추가</th>
+      </tr>
+      <tr class="item1">
+        <td>
+          <button class="optionDeleteBtn">옵션삭제</button>
+          <input type="text" name="optionNm" /><button class="addBtn">
+            항목추가
+          </button>
+        </td>
+        <td><input type="text" /></td>
+        <td><input type="checkbox" name="itemNm" /></td>
+        <td><input type="text" name="price" /></td>
+        <td><input type="text" name="balance" /></td>
+        <td><button class="delBtn">삭제</button></td>
+      </tr>
+      <tr class="item2">
+        <td>
+          <button class="optionDeleteBtn">옵션삭제</button>
+          <input type="text" name="optionNm" /><button class="addBtn">
+            항목추가
+          </button>
+        </td>
+        <td><input type="text" /></td>
+        <td><input type="checkbox" name="itemNm" /></td>
+        <td><input type="text" name="price" /></td>
+        <td><input type="text" name="balance" /></td>
+        <td><button class="delBtn">삭제</button></td>
+      </tr>
+      <tr class="item3">
+        <td>
+          <button class="optionDeleteBtn">옵션삭제</button>
+          <input type="text" name="optionNm" /><button class="addBtn">
+            항목추가
+          </button>
+        </td>
+        <td><input type="text" /></td>
+        <td><input type="checkbox" name="itemNm" /></td>
+        <td><input type="text" name="price" /></td>
+        <td><input type="text" name="balance" /></td>
+        <td><button class="delBtn">삭제</button></td>
+      </tr>
+      <tr class="item4">
+        <td>
+          <button class="optionDeleteBtn">옵션삭제</button>
+          <input type="text" name="optionNm" /><button class="addBtn">
+            항목추가
+          </button>
+        </td>
+        <td><input type="text" /></td>
+        <td><input type="checkbox" name="itemNm" /></td>
+        <td><input type="text" name="price" /></td>
+        <td><input type="text" name="balance" /></td>
+        <td><button class="delBtn">삭제</button></td>
+      </tr>
+    </table>
+  </body>
+</html>
+<script>
+  $(function () {
+    /*
+    eq(n) 선택한 요소 중에서 인덱스가 n인 요소
+    :last 선택한 요소 중에서 마지막 요소를 선택을 선택함
+    children()은 부모 요소의 바로 아래 단계인 자식요소만 선택할 수 있으나,
+    find()는 부모 태그의 모든 하위 요소의 자식을 선택하여 가져올 수 있음.
+    :not(선택자)	선택한 요소 중에서 지정한 선택자와 일치하지 않는 요소를 모두 선택함.
+    */
+
+    // 타이틀 제외 전체 삭제
+    $('#allRemove').click(function () {
+      var allRemove = $('#example > tbody').children('tr:not(:first)').remove();
+    });
+
+    // 옵션추가 버튼 클릭시
+    $('#addItemBtn').click(function () {
+      // item 의 최대번호 구하기
+      var lastItemNo = $('#example tr:last').attr('class').replace('item', '');
+      // 2번째 <tr> 태그 요소 복사
+      var newitem = $('#example tr:eq(1)').clone();
+      // 클래스 제거
+      newitem.removeClass();
+      /*
+      .ind() : 자식 및 하위 태그 모두 찾을 때
+      .chilidren() : 바로 아래 요소, 자식 요소만 찾을 때
+      */
+
+      // 1번째 <td> 태그 셀 병합 속성 추가
+      newitem.find('td:eq(0)').attr('rowspan', '1');
+      // X ?
+      // newitem.find('td:eq(0)').rowspan(1);
+      // 클래스 추가 (item의 최대번호 + 1)
+      newitem.addClass('item' + (parseInt(lastItemNo) + 1));
+
+      /*
+      .append(): 선택된 요소의 '마지막'에 새로운 요소나 콘텐츠를 추가
+      .prepend(): 선택된 요소의 '처음'에 새로운 요소나 콘텐츠를 추가
+      .appendTo(): 선택된 요소를 '해당 요소의 마지막'에 추가
+      .prependTo(): 선택된 요소를 '해당 요소의 처음'에 추가
+      */
+      $('#example').append(newitem);
+    });
+
+    // 항목추가 버튼 클릭시
+    $('.addBtn').live('click', function () {
+      // jquery 1.6.4 에서는 live, 3.x 에서는 on
+      var clickedRow = $(this).parent().parent();
+      var cls = clickedRow.attr('class');
+
+      // tr 복사해서 마지막에 추가
+      var newrow = clickedRow.clone();
+      /*
+      .remove(): 선택한 요소를 DOM 트리에서 삭제. 삭제되는 요소와 연관된 제이쿼리 데이터나 이벤트도 모두 함께 삭제
+      .detach(): 선택한 요소를 DOM 트리에서 삭제. 삭제되는 요소와 연관된 제이쿼리 데이터나 이벤트는 삭제되지 않고, 계속 유지 .detach() 메소드가
+      반환하는 제이쿼리 객체를 .append()나 .prepend()와 같은 메소드에 인수로 전달하면 삭제한 요소를 다시 복구할 수도 있음
+      .empty(): 선택한 요소의 자식 요소를 모두 삭제. .remove()나 .detach() 메소드와는 달리 선택된 요소 그 자체는 삭제되지 않음
+      .unwrap(): 선택한 요소의 부모 요소를 삭제.
+      */
+      newrow.find('td:eq(0)').remove();
+      /*
+      .before(): 선택한 요소의 '바로 앞에' 새로운 요소나 콘텐츠를 추가
+      .after(): 선택한 요소의 '바로 뒤에' 새로운 요소나 콘텐츠를 추가
+      .insertBefore(): 선택한 요소를 '해당 요소의 앞에' 삽입
+      .insertAfter(): 선택한 요소를 '해당 요소의 뒤에' 삽입
+      */
+      newrow.insertAfter($('#example .' + cls + ':last'));
+
+      // rowspan 조정
+      resizeRowspan(cls);
+    });
+
+    // 삭제버튼 클릭시
+    $('.delBtn').live('click', function () {
+      // .parent(): 선택 요소의 부모 요소를 선택
+      // .parents(): 선택 요소의 조상 요소를 모두 선택
+      var clickedRow = $(this).parent().parent();
+      var cls = clickedRow.attr('class');
+
+      // 각 항목의 첫번째 row를 삭제한 경우 다음 row에 td 하나를 추가해 준다.
+      if (clickedRow.find('td:eq(0)').attr('rowspan')) {
+        // .next(): 선택한 요소의 다음 요소를 선택
+        // .hasClass(): 선택한 요소에 클래스가 있는지 확인. Returns:Boolean
+        if (clickedRow.next().hasClass(cls)) {
+          clickedRow.next().prepend(clickedRow.find('td:eq(0)'));
+        }
+      }
+
+      clickedRow.remove();
+
+      // rowspan 조정
+      resizeRowspan(cls);
+    });
+
+    // 현재옵션 삭제 기능
+
+    $('.optionDeleteBtn').live('click', function () {
+      var clickedRow = $(this).parent().parent();
+      clickedRow.remove();
+    });
+
+    // cls : rowspan 을 조정할 class ex) item1, item2, ...
+    function resizeRowspan(cls) {
+      var rowspan = $('.' + cls).length;
+      $('.' + cls + ':first td:eq(0)').attr('rowspan', rowspan);
+    }
+  });
+
+  // 콘솔에 데이터 확인 연습
+  $('#example tr').click(function () {
+    var str = '';
+    var tdArr = new Array();
+
+    var tr = $(this);
+    var td = tr.children();
+
+    console.log('클릭된 Row의 모든 데이터 :' + tr.text());
+
+    td.each(function (i) {
+      tdArr.push(td.eq(i).text());
+    });
+
+    console.log('배열에 담긴 값 : ' + tdArr);
+  });
+</script>
