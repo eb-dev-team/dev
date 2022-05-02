@@ -48,7 +48,6 @@
     Ref: #9
     Related to: #99, #999
     
-### 참고
+#### 로컬에서 삭제한 브랜치 정리
 
-로컬에서 삭제한 브랜치 정리
- ```git fetch --all --prune```
+    git fetch --all --prune
